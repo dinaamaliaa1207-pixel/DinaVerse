@@ -1,0 +1,227 @@
+:root {
+  --teal: #4d1b56;
+  --teal-muda: #603f7a;
+  --teal-abu: #437E8D;
+  --oranye: #c12f6c;
+  --abu: #777777;
+  --putih: #FFFFFF;
+}
+ 
+* { box-sizing: border-box; }
+ 
+body {
+  margin: 0;
+  padding: 20px 0;
+  font: 100%/1.5 Verdana, Arial, Helvetica, sans-serif;
+  color: #222;
+  background: #1e1e1e url('background.jpg') center / cover fixed no-repeat;
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, p { margin-top: 0; }
+ 
+/* =====================================================
+   LAYOUT DESKTOP
+   header (100%)
+   nav (25%) | section (50%) | aside (25%)
+   footer (100%)
+   ===================================================== */
+#halaman {
+  width: 96%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(to top, #FFFFFF 0%, #D0D0D0 100%);
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-areas:
+    "header  header  header"
+    "nav     section aside"
+    "footer  footer  footer";
+  column-gap: 0;
+  row-gap: 14px;
+}
+ 
+header  { grid-area: header; }
+nav     { grid-area: nav; }
+section { grid-area: section; }
+aside   { grid-area: aside; }
+footer  { grid-area: footer; }
+ 
+/* ---------- HEADER ---------- */
+header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 24px;
+  border-radius: 10px;
+  color: var(--putih);
+  background: linear-gradient(110deg, var(--teal) 0%, var(--teal-muda) 100%);
+  border-bottom: 5px solid var(--oranye);
+}
+ 
+.foto {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 4px solid var(--putih);
+  background: url('foto.jpg') center / cover no-repeat, var(--teal-abu);
+}
+ 
+.judul h1 { margin: 0; font-size: 2rem; }
+.judul p  { margin: 4px 0 0; opacity: .9; }
+ 
+/* ---------- NAV ---------- */
+nav {
+  padding: 16px 10px;
+  color: var(--putih);
+  background: radial-gradient(circle at center top, var(--teal-abu) 0%, var(--teal) 100%);
+  border-radius: 10px 0 0 10px;
+}
+ 
+nav a {
+  display: block;
+  margin-bottom: 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--putih);
+  font-style: italic;
+  text-decoration: none;
+}
+ 
+nav a:hover { background: var(--oranye); }
+ 
+/* ---------- SECTION ---------- */
+section {
+  min-height: 300px;
+  padding: 18px 22px;
+  background: var(--putih);
+  border: 1px solid #c8c8c8;
+}
+ 
+section h2 {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding-bottom: 4px;
+  color: var(--teal);
+  border-bottom: 3px solid var(--oranye);
+}
+ 
+section ul { padding-left: 20px; list-style: disc; }
+section li { margin-bottom: 4px; }
+section li::marker { color: var(--oranye); }
+ 
+table { border-collapse: collapse; }
+th { padding: 4px 6px 4px 0; text-align: left; color: var(--teal); white-space: nowrap; }
+td { padding: 4px 0; }
+ 
+/* Ganti isi section tanpa JavaScript:
+   hanya artikel yang dituju link (#id) yang tampil */
+article { display: none; }
+article:target { display: block; }
+ 
+/* Saat pertama dibuka (belum ada menu diklik), tampilkan Biodata */
+section:not(:has(article:target)) #biodata { display: block; }
+ 
+/* Tanda menu yang sedang aktif */
+nav a:hover,
+#halaman:not(:has(article:target)) nav a[href="#biodata"],
+#halaman:has(#biodata:target)    nav a[href="#biodata"],
+#halaman:has(#pendidikan:target) nav a[href="#pendidikan"],
+#halaman:has(#pengalaman:target) nav a[href="#pengalaman"],
+#halaman:has(#keahlian:target)   nav a[href="#keahlian"],
+#halaman:has(#publikasi:target)  nav a[href="#publikasi"] {
+  background: var(--oranye);
+}
+ 
+/* ---------- ASIDE ---------- */
+aside {
+  padding: 16px 18px;
+  color: var(--putih);
+  background: radial-gradient(circle at center top, var(--teal-abu) 0%, var(--teal) 100%);
+  border-radius: 0 10px 10px 0;
+}
+ 
+aside h3 {
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--oranye);
+}
+ 
+aside li { padding: 4px 0 4px 18px; position: relative; }
+aside li::before { content: "\2022"; position: absolute; left: 4px; color: var(--oranye); }
+ 
+/* ---------- FOOTER ---------- */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  color: var(--putih);
+  background: var(--abu);
+  font-size: .9rem;
+}
+ 
+footer address { font-style: normal; }
+footer p { margin: 0; }
+.hakcipta { text-align: center; }
+.namaweb  { text-align: right; }
+ 
+/* =====================================================
+   TABLET LANDSCAPE (<= 1024px)
+   nav 25% + section 75%, aside turun 100%
+   ===================================================== */
+@media (max-width: 1024px) {
+  #halaman {
+    grid-template-columns: 25% 75%;
+    grid-template-areas:
+      "header header"
+      "nav    section"
+      "aside  aside"
+      "footer footer";
+  }
+  aside { border-radius: 10px; }
+  aside ul { display: flex; flex-wrap: wrap; gap: 0 26px; }
+}
+ 
+/* =====================================================
+   TABLET PORTRAIT (<= 768px)
+   semua blok 100%, menu nav mendatar
+   ===================================================== */
+@media (max-width: 768px) {
+  #halaman {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "nav"
+      "section"
+      "aside"
+      "footer";
+  }
+  nav { padding: 8px; border-radius: 10px; }
+  nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+  nav a { margin: 0; padding: 7px 14px; }
+  section { min-height: 0; }
+}
+ 
+/* =====================================================
+   SMARTPHONE (<= 480px)
+   menu nav tersusun ke bawah
+   ===================================================== */
+@media (max-width: 480px) {
+  header { padding: 14px; gap: 14px; }
+  .foto { width: 72px; height: 72px; }
+  .judul h1 { font-size: 1.3rem; }
+  .judul p  { font-size: .8rem; }
+ 
+  nav ul { display: block; }
+  nav a  { margin-bottom: 4px; }
+ 
+  footer { flex-direction: column; text-align: center; }
+  .namaweb { text-align: center; }
+}
+ 
